@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shusaku Cafe</title>
+<meta name="description" content="Shusaku Cafe - coffee is life. See our menu, find us on the map, and follow us.">
+<meta name="theme-color" content="#3B2A20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kantumruy+Pro:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAF6F0; --paper:#FFFFFF; --espresso:#3B2A20; --muted:#7A675A;
+  --accent:#B7793F; --accent-dark:#9A6230; --line:#E8DFD3;
+  --radius:18px; --shadow:0 6px 24px rgba(59,42,32,.08);
+  --font-body:'Inter','Kantumruy Pro',system-ui,sans-serif;
+  --font-head:'Playfair Display','Kantumruy Pro',Georgia,serif;
+}
+html[lang="km"]{
+  --font-body:'Kantumruy Pro','Inter',system-ui,sans-serif;
+  --font-head:'Kantumruy Pro','Playfair Display',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--espresso);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.container{width:min(1100px,100% - 40px);margin-inline:auto}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(250,246,240,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-family:var(--font-head);font-weight:700;font-size:1.25rem;text-decoration:none}
+nav{display:flex;gap:26px;align-items:center}
+nav a{text-decoration:none;font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--accent)}
+.lang{display:inline-flex;border:1.5px solid var(--espresso);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--espresso)}
+.lang button[aria-pressed="true"]{background:var(--espresso);color:#fff}
+@media(max-width:720px){nav a{display:none}}
+
+/* Buttons */
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:999px;font:inherit;font-weight:600;font-size:1rem;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .15s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-ghost{border-color:#fff;color:#fff;background:transparent}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.btn-outline{border-color:var(--espresso);color:var(--espresso);background:transparent}
+.btn-outline:hover{background:var(--espresso);color:#fff}
+
+/* Hero */
+.hero{min-height:78vh;display:grid;place-items:center;text-align:center;color:#fff;
+  background:radial-gradient(1200px 520px at 50% 0%,#6B4630 0%,#3B2A20 62%,#2A1D15 100%) center/cover no-repeat}
+.hero .inner{padding:80px 0;animation:fadeUp .8s ease both}
+.badge{display:inline-block;padding:6px 18px;border:1px solid rgba(255,255,255,.5);border-radius:999px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+html[lang="km"] .badge{letter-spacing:0;text-transform:none}
+.hero h1{font-family:var(--font-head);font-size:clamp(2.6rem,9vw,5rem);line-height:1.12;margin-bottom:12px}
+.hero p{font-size:clamp(1.1rem,3vw,1.4rem);opacity:.92;margin-bottom:34px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:84px 0;scroll-margin-top:64px}
+section.alt{background:var(--paper);border-block:1px solid var(--line)}
+h2{font-family:var(--font-head);font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.25;text-align:center;margin-bottom:10px}
+.sub{text-align:center;color:var(--muted);margin-bottom:44px}
+.about-text{max-width:640px;margin:20px auto 0;text-align:center;font-size:1.1rem}
+
+/* Menu */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
+.card{background:var(--paper);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(59,42,32,.14)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#EADFD0}
+.card .body{padding:18px 20px 22px}
+.card h3{font-family:var(--font-head);font-size:1.2rem;line-height:1.35;margin-bottom:4px}
+.card p{color:var(--muted);font-size:.95rem}
+.price{font-weight:700;color:var(--accent-dark);font-size:1.05rem}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+.add{flex:0 0 auto;min-height:44px;padding:0 20px;font-size:.95rem}
+.foot.noprice .add{flex:1}
+
+/* Visit */
+.info{max-width:640px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px 28px}
+section.alt .info{background:var(--cream)}
+.row{display:flex;flex-wrap:wrap;gap:6px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .lbl{width:130px;flex-shrink:0;color:var(--muted);font-weight:500}
+.row .val{flex:1;min-width:0;font-weight:500;word-break:break-word}
+.row .val a{text-decoration:none;border-bottom:1px solid var(--accent)}
+.info .btns{padding:10px 0 22px}
+@media(max-width:520px){.row .lbl{width:100%}.info{padding:6px 20px}}
+
+/* QR */
+.qrbox{max-width:360px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;text-align:center}
+#qrcode{display:inline-block;padding:14px;background:#fff;border-radius:12px;border:1px solid var(--line);margin-bottom:14px;min-height:50px}
+#qrcode img{display:block}
+.qr-url{font-size:.85rem;color:var(--muted);word-break:break-all;margin-bottom:20px}
+
+/* Order: floating button + popup */
+.cart-fab{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;min-height:56px;padding:0 10px 0 20px;border:0;border-radius:999px;background:var(--espresso);color:#fff;font:inherit;font-weight:600;box-shadow:0 10px 30px rgba(59,42,32,.35);cursor:pointer}
+.cart-fab:hover{background:#2A1D15}
+.cart-fab.bump{animation:bump .3s}
+@keyframes bump{50%{transform:scale(1.08)}}
+.fab-count{min-width:36px;height:36px;border-radius:999px;background:var(--accent);display:grid;place-items:center;font-size:.95rem;padding:0 8px}
+dialog{border:0;padding:0;border-radius:var(--radius);width:min(520px,100% - 24px);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);background:var(--paper);color:var(--espresso);box-shadow:0 20px 60px rgba(0,0,0,.35);margin:auto}
+dialog::backdrop{background:rgba(35,24,17,.55)}
+.sheet{padding:22px 22px 26px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sheet-head h3{font-family:var(--font-head);font-size:1.45rem;line-height:1.3}
+.x{width:42px;height:42px;border:0;border-radius:50%;background:var(--cream);font-size:1.6rem;line-height:1;cursor:pointer;color:var(--espresso)}
+.x:hover{background:var(--line)}
+.demo{background:#FFF4DC;border:1px solid #EBCB8B;padding:10px 14px;border-radius:12px;font-size:.92rem;margin-bottom:14px}
+.empty{color:var(--muted);padding:18px 0}
+.line{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.line .nm{flex:1;min-width:0;font-weight:500}
+.line .lp{min-width:64px;text-align:right;font-weight:600;color:var(--accent-dark)}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px}
+.qty button{width:40px;height:40px;border:0;background:none;font-size:1.25rem;cursor:pointer;color:var(--espresso);border-radius:50%}
+.qty button:hover{background:var(--cream)}
+.qty span{min-width:24px;text-align:center;font-weight:600}
+.total{text-align:right;font-weight:700;font-size:1.2rem;padding:14px 0 4px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.seg label{position:relative;display:block}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:flex;align-items:center;justify-content:center;min-height:48px;border:1.5px solid var(--line);border-radius:12px;font-weight:600;cursor:pointer}
+.seg input:checked+span{background:var(--espresso);border-color:var(--espresso);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.field{display:block;margin-bottom:14px}
+.field>span{display:block;font-size:.92rem;font-weight:500;color:var(--muted);margin-bottom:6px}
+.field input,.field textarea{width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--cream);color:var(--espresso);resize:vertical}
+.field input:focus,.field textarea:focus{outline:3px solid rgba(183,121,63,.35);border-color:var(--accent)}
+.err{color:#B3261E;font-weight:500;margin-bottom:12px}
+#submit-order{width:100%}
+#submit-order:disabled{opacity:.6;cursor:wait;transform:none}
+.done{text-align:center;padding:8px 0 4px}
+.done-icon{width:64px;height:64px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:2rem;margin:0 auto 14px}
+.done h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:4px;outline:none}
+.done .muted{color:var(--muted);font-size:.9rem}
+.done-id{font-family:var(--font-head);font-size:2.2rem;font-weight:700;margin:0 0 10px}
+.done p{margin-bottom:12px}
+
+/* Footer */
+footer{background:var(--espresso);color:#E9DED1;text-align:center;padding:32px 0;font-size:.95rem}
+
+/* Print only the QR section */
+@media print{
+  body.print-qr header,body.print-qr .hero,body.print-qr section:not(#qr),body.print-qr footer,body.print-qr .cart-fab,body.print-qr .qrbox .btns{display:none!important}
+  body.print-qr{background:#fff}
+  body.print-qr #qr{padding:40px 0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container bar">
+    <a class="logo" href="#top" id="logo"></a>
+    <nav>
+      <a href="#menu" data-i18n="nav_menu"></a>
+      <a href="#about" data-i18n="nav_about"></a>
+      <a href="#visit" data-i18n="nav_visit"></a>
+      <a href="#qr" data-i18n="nav_qr"></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="km" aria-pressed="false">ខ្មែរ</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero" id="hero">
+    <div class="container inner">
+      <span class="badge" id="since"></span>
+      <h1 id="hero-name"></h1>
+      <p id="hero-tagline"></p>
+      <div class="btns">
+        <a class="btn btn-primary" href="#menu" data-i18n="btn_menu"></a>
+        <a class="btn btn-ghost" id="hero-call" data-i18n="btn_call"></a>
+        <a class="btn btn-ghost" id="hero-map" target="_blank" rel="noopener" data-i18n="btn_directions"></a>
+      </div>
+    </div>
+  </div>
+
+  <section id="menu">
+    <div class="container">
+      <h2 data-i18n="menu_title"></h2>
+      <p class="sub" data-i18n="menu_sub"></p>
+      <div class="grid" id="menu-grid"></div>
+    </div>
+  </section>
+
+  <section id="about" class="alt">
+    <div class="container">
+      <h2 data-i18n="about_title"></h2>
+      <p class="about-text" id="about-text"></p>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="container">
+      <h2 data-i18n="visit_title"></h2>
+      <p class="sub" data-i18n="visit_sub"></p>
+      <div class="info">
+        <div id="info-rows"></div>
+        <div class="btns" id="visit-btns"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="follow" class="alt">
+    <div class="container">
+      <h2 data-i18n="follow_title"></h2>
+      <p class="sub" data-i18n="follow_sub"></p>
+      <div class="btns" id="social-btns"></div>
+    </div>
+  </section>
+
+  <section id="qr">
+    <div class="container">
+      <h2 data-i18n="qr_title"></h2>
+      <p class="sub" data-i18n="qr_sub"></p>
+      <div class="qrbox">
+        <div id="qrcode"></div>
+        <p class="qr-url" id="qr-url"></p>
+        <div class="btns">
+          <button type="button" class="btn btn-primary" id="dl-qr" data-i18n="btn_dl"></button>
+          <button type="button" class="btn btn-outline" id="print-qr" data-i18n="btn_print"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container" id="footer-text"></div>
+</footer>
+
+<button type="button" class="cart-fab" id="cart-fab" hidden>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+  <span id="fab-label"></span>
+  <span class="fab-count" id="fab-count"></span>
+</button>
+
+<dialog id="cart" aria-labelledby="cart-title">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="cart-title" data-i18n="cart_title"></h3>
+      <button type="button" class="x" id="cart-close">&times;</button>
+    </div>
+
+    <div id="cart-view">
+      <p class="demo" id="demo-note" data-i18n="demo_note" hidden></p>
+      <p class="empty" id="cart-empty" data-i18n="cart_empty" hidden></p>
+      <div id="cart-items"></div>
+      <p class="total" id="cart-total" hidden></p>
+
+      <form id="order-form" novalidate hidden>
+        <div class="seg" role="radiogroup">
+          <label><input type="radio" name="type" value="dine" checked><span data-i18n="type_dine"></span></label>
+          <label><input type="radio" name="type" value="take"><span data-i18n="type_take"></span></label>
+        </div>
+        <label class="field" id="f-table"><span data-i18n="f_table"></span><input id="in-table" maxlength="10" autocomplete="off"></label>
+        <label class="field"><span id="lbl-name"></span><input id="in-name" maxlength="40" autocomplete="name"></label>
+        <label class="field"><span data-i18n="f_note"></span><textarea id="in-note" rows="2" maxlength="150"></textarea></label>
+        <p class="err" id="form-err" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary" id="submit-order" data-i18n="btn_place"></button>
+      </form>
+    </div>
+
+    <div class="done" id="done-view" hidden>
+      <div class="done-icon" aria-hidden="true">&#10003;</div>
+      <h3 id="done-title" tabindex="-1"></h3>
+      <p class="muted" data-i18n="done_id"></p>
+      <p class="done-id" id="done-id"></p>
+      <p id="done-msg"></p>
+      <div class="btns">
+        <a class="btn btn-primary" id="tg-link" target="_blank" rel="noopener" hidden data-i18n="btn_tg"></a>
+        <button type="button" class="btn btn-outline" id="done-close" data-i18n="btn_done"></button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<noscript><p style="text-align:center;padding:24px">Please turn on JavaScript to see this page.</p></noscript>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* =====================================================================
+   EDIT HERE - everything you may want to change is in SETTINGS below.
+   Text boxes with { en: "...", km: "..." } have an English and a Khmer version.
+   ===================================================================== */
+const SETTINGS = {
+  shopName: "Shusaku Cafe",
+  tagline:  { en: "Coffee is life", km: "កាហ្វេគឺជាជីវិត" },
+  sinceText:{ en: "Since 2012",     km: "តាំងពីឆ្នាំ ២០១២" },   // opened 15 January 2012
+  about: {
+    en: "Shusaku Cafe has been serving fresh coffee and drinks since 2012. Come relax, meet friends, and enjoy a cup made with care.",
+    km: "ហាងកាហ្វេ Shusaku បានផ្តល់ជូនកាហ្វេ និងភេសជ្ជៈស្រស់ៗតាំងពីឆ្នាំ ២០១២។ សូមអញ្ជើញមកសម្រាកលំហែ ជួបជុំមិត្តភក្តិ និងរីករាយជាមួយកាហ្វេដែលធ្វើដោយក្តីយកចិត្តទុកដាក់។"
+  },
+
+  // EDIT: put your real opening hours here
+  hours:   { en: "Every day · 7:00 AM – 9:00 PM", km: "រៀងរាល់ថ្ងៃ · ម៉ោង ៧:០០ ព្រឹក – ៩:០០ យប់" },
+  // EDIT: street address (the row is hidden while this is empty)
+  address: { en: "", km: "" },
+  phone:   "2641629999",
+  email:   "hongpailov168@gmail.com",
+  mapsLink:"https://maps.app.goo.gl/6hBHG1rn1742Koni6",
+
+  // The QR code points to this link. Leave "" to use this page's own address.
+  // After the site is online, put its address here, e.g. "https://shusaku-cafe.netlify.app"
+  siteUrl: "",
+
+  // Social links. Paste the full link, or leave "" to hide that button.
+  social: { instagram: "", facebook: "", tiktok: "", telegram: "", whatsapp: "" },
+
+  // Big picture behind the title. Leave "" for the plain coffee-brown background.
+  heroImage: "",
+
+  // ORDERING. Customers add drinks to a cart and send the order to the shop.
+  //  endpoint: web address of your order-alert service (see worker.js). Orders then arrive in your Telegram.
+  //  telegramUsername: simple option with no setup. Customer taps "Send" in Telegram. Example: "shusaku_cafe"
+  //  If both are empty the page runs in DEMO mode (orders are NOT sent).
+  //  enabled: false hides all ordering buttons.
+  orders: {
+    enabled: true,
+    endpoint: "https://shy.hongpailov168.workers.dev",
+    telegramUsername: "",
+    currency: "$",   // symbol shown before prices, e.g. "$" or "៛"
+    decimals: 2      // 2 for $2.50, use 0 for riel such as ៛4000
+  },
+
+  // MENU. "image" can be a web link OR a file inside the images folder, e.g. "images/latte.jpg".
+  // To change a picture, replace the link/file name.
+  // "price" is a plain number like 2.5 (hidden while null). Drinks without a price can still be ordered.
+  menu: [
+    {
+      name:  { en: "Signature Coffee", km: "កាហ្វេពិសេស" },
+      desc:  { en: "Freshly brewed, rich and smooth.", km: "កាហ្វេស្រស់ ឆ្ងាញ់ និងទន់ភ្លន់។" },
+      price: null,
+      image: "https://marketplace.canva.com/tEtTE/MAFoAStEtTE/1/tl/canva-people-hands-holding-coffee-cups-MAFoAStEtTE.jpg"
+    },
+    {
+      name:  { en: "Iced Milk Coffee", km: "កាហ្វេទឹកដោះគោទឹកកក" },
+      desc:  { en: "Cold, creamy, and refreshing.", km: "ត្រជាក់ ទន់ល្មើយ និងស្រស់ស្រាយ។" },
+      price: null,
+      image: "https://static.vecteezy.com/system/resources/thumbnails/075/809/291/small/an-iced-coffee-with-ice-and-milk-free-photo.jpg"
+    },
+    {
+      name:  { en: "Iced Matcha", km: "ម៉ាឆាទឹកកក" },
+      desc:  { en: "Smooth matcha over ice.", km: "ម៉ាឆាទន់ភ្លន់លើទឹកកក។" },
+      price: null,
+      image: "https://static.vecteezy.com/system/resources/thumbnails/004/439/437/small/iced-matcha-green-tea-in-coffee-cafe-free-photo.jpg"
+    },
+    {
+      name:  { en: "Matcha Green Tea", km: "តែបៃតងម៉ាឆា" },
+      desc:  { en: "Light, fresh, and full of flavor.", km: "ស្រាល ស្រស់ និងមានរសជាតិពិសេស។" },
+      price: null,
+      image: "https://static.vecteezy.com/system/resources/thumbnails/082/229/483/small/glass-of-matcha-green-tea-on-plate-drink-beverage-cafe-coffee-bar-refreshment-slim-antioxidant-free-photo.jpg"
+    }
+  ]
+};
+
+/* Button and heading text (English + Khmer) */
+const I18N = {
+  en: {
+    nav_menu:"Menu", nav_about:"About", nav_visit:"Visit", nav_qr:"QR Code",
+    btn_menu:"View Menu", btn_call:"Call Us", btn_directions:"Get Directions",
+    menu_title:"Our Menu", menu_sub:"Fresh drinks, made with care.",
+    about_title:"About Us",
+    visit_title:"Visit Us", visit_sub:"We would love to see you.",
+    lbl_hours:"Opening hours", lbl_address:"Address", lbl_phone:"Phone", lbl_email:"Email",
+    btn_email:"Send Email",
+    follow_title:"Follow Us", follow_sub:"Photos, news, and offers.",
+    qr_title:"Scan to Visit Us", qr_sub:"Scan with your phone camera to open our website.",
+    btn_dl:"Download QR", btn_print:"Print QR",
+    footer:"All rights reserved.",
+    fab:"View order", add:"Add", added:"Added ✓",
+    cart_title:"Your order", cart_empty:"Your order is empty. Add a drink from the menu.", total:"Total",
+    type_dine:"Dine in", type_take:"Take away",
+    f_table:"Table number", f_name_opt:"Name (optional)", f_name_req:"Name (so we can call you)", f_note:"Note (e.g. less sugar)",
+    btn_place:"Place order", btn_sending:"Sending…",
+    err_table:"Please enter your table number.", err_name:"Please enter your name.",
+    err_send:"Could not send the order. Please check your internet and try again, or tell the staff.",
+    demo_note:"Demo mode: orders are not sent to the shop yet.",
+    done_id:"Order number", done_title:"Order sent!", done_dine:"We will bring it to your table.", done_take:"We will call your name when it is ready.",
+    done_tg_title:"Almost done", done_tg:"Tap the button, then press Send in Telegram to place your order.",
+    done_demo_title:"Demo only", done_demo:"This order was not sent. Set up order alerts to receive real orders.",
+    btn_tg:"Open Telegram", btn_done:"Close",
+    aria_minus:"Remove one", aria_plus:"Add one", aria_close:"Close"
+  },
+  km: {
+    nav_menu:"ម៉ឺនុយ", nav_about:"អំពីយើង", nav_visit:"ទីតាំង", nav_qr:"កូដ QR",
+    btn_menu:"មើលម៉ឺនុយ", btn_call:"ទូរស័ព្ទមកយើង", btn_directions:"បង្ហាញផ្លូវ",
+    menu_title:"ម៉ឺនុយរបស់យើង", menu_sub:"ភេសជ្ជៈស្រស់ៗ ធ្វើដោយក្តីយកចិត្តទុកដាក់",
+    about_title:"អំពីយើង",
+    visit_title:"មកលេងយើង", visit_sub:"យើងរង់ចាំស្វាគមន៍អ្នក",
+    lbl_hours:"ម៉ោងបើក", lbl_address:"អាសយដ្ឋាន", lbl_phone:"ទូរស័ព្ទ", lbl_email:"អ៊ីមែល",
+    btn_email:"ផ្ញើអ៊ីមែល",
+    follow_title:"តាមដានយើង", follow_sub:"រូបភាព ព័ត៌មាន និងប្រូម៉ូសិន",
+    qr_title:"ស្កេនដើម្បីចូលមើល", qr_sub:"ស្កេនដោយកាមេរ៉ាទូរស័ព្ទ ដើម្បីបើកគេហទំព័ររបស់យើង",
+    btn_dl:"ទាញយក QR", btn_print:"បោះពុម្ព QR",
+    footer:"រក្សាសិទ្ធិគ្រប់យ៉ាង។",
+    fab:"មើលការកុម្ម៉ង់", add:"បន្ថែម", added:"បានបន្ថែម ✓",
+    cart_title:"ការកុម្ម៉ង់របស់អ្នក", cart_empty:"មិនទាន់មានអ្វីក្នុងការកុម្ម៉ង់ទេ។ សូមជ្រើសរើសភេសជ្ជៈពីម៉ឺនុយ។", total:"សរុប",
+    type_dine:"ញ៉ាំនៅហាង", type_take:"យកទៅផ្ទះ",
+    f_table:"លេខតុ", f_name_opt:"ឈ្មោះ (មិនបង្ខំ)", f_name_req:"ឈ្មោះ (ដើម្បីហៅអ្នក)", f_note:"កំណត់ចំណាំ (ឧ. ស្ករតិច)",
+    btn_place:"បញ្ជូនការកុម្ម៉ង់", btn_sending:"កំពុងផ្ញើ…",
+    err_table:"សូមបញ្ចូលលេខតុរបស់អ្នក។", err_name:"សូមបញ្ចូលឈ្មោះរបស់អ្នក។",
+    err_send:"មិនអាចផ្ញើការកុម្ម៉ង់បានទេ។ សូមពិនិត្យអ៊ីនធឺណិត ហើយព្យាយាមម្តងទៀត ឬប្រាប់បុគ្គលិក។",
+    demo_note:"របៀបសាកល្បង៖ ការកុម្ម៉ង់មិនទាន់ត្រូវបានផ្ញើទៅហាងទេ។",
+    done_id:"លេខកុម្ម៉ង់", done_title:"បានផ្ញើការកុម្ម៉ង់ហើយ!", done_dine:"យើងនឹងយកមកដល់តុរបស់អ្នក។", done_take:"យើងនឹងហៅឈ្មោះអ្នក នៅពេលរួចរាល់។",
+    done_tg_title:"ជិតរួចហើយ", done_tg:"ចុចប៊ូតុង រួចចុច Send ក្នុង Telegram ដើម្បីបញ្ជូនការកុម្ម៉ង់។",
+    done_demo_title:"សាកល្បងប៉ុណ្ណោះ", done_demo:"ការកុម្ម៉ង់នេះមិនត្រូវបានផ្ញើទេ។ សូមដំឡើងការជូនដំណឹងដើម្បីទទួលការកុម្ម៉ង់ពិត។",
+    btn_tg:"បើក Telegram", btn_done:"បិទ",
+    aria_minus:"ដកមួយ", aria_plus:"បន្ថែមមួយ", aria_close:"បិទ"
+  }
+};
+
+const SOCIAL_LABELS = { instagram:"Instagram", facebook:"Facebook", tiktok:"TikTok", telegram:"Telegram", whatsapp:"WhatsApp" };
+
+/* ===================== Code below: no need to edit ===================== */
+const $ = (s, el = document) => el.querySelector(s);
+const isLink = u => /^https?:\/\//i.test(u || "");
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#EADFD0'/><text x='200' y='170' font-size='90' text-anchor='middle'>\u2615</text></svg>"
+);
+
+let lang = "en";
+try { lang = localStorage.getItem("lang") || "en"; } catch (e) {}
+if (!I18N[lang]) lang = "en";
+
+const t = v => (v && typeof v === "object") ? (v[lang] || v.en || "") : (v || "");
+const telHref = () => "tel:" + String(SETTINGS.phone).replace(/[^\d+]/g, "");
+
+function makeButton(cls, href, text, external) {
+  const a = document.createElement("a");
+  a.className = "btn " + cls;
+  a.href = href;
+  a.textContent = text;
+  if (external) { a.target = "_blank"; a.rel = "noopener"; }
+  return a;
+}
+
+function render() {
+  const S = SETTINGS, d = I18N[lang];
+  document.documentElement.lang = lang;
+  document.title = S.shopName + " - " + t(S.tagline);
+
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = d[el.dataset.i18n]; });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+
+  $("#logo").textContent = S.shopName;
+  $("#hero-name").textContent = S.shopName;
+  $("#hero-tagline").textContent = t(S.tagline);
+  $("#since").textContent = t(S.sinceText);
+  $("#about-text").textContent = t(S.about);
+
+  // Hero buttons
+  const heroCall = $("#hero-call"), heroMap = $("#hero-map");
+  heroCall.hidden = !S.phone;
+  if (S.phone) heroCall.href = telHref();
+  heroMap.hidden = !isLink(S.mapsLink);
+  if (isLink(S.mapsLink)) heroMap.href = S.mapsLink;
+
+  // Menu cards
+  const grid = $("#menu-grid");
+  grid.innerHTML = "";
+  S.menu.forEach((item, idx) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    const img = document.createElement("img");
+    img.referrerPolicy = "no-referrer";
+    img.loading = "lazy";
+    img.alt = t(item.name);
+    img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
+    img.src = item.image || PLACEHOLDER;
+    const body = document.createElement("div");
+    body.className = "body";
+    const h = document.createElement("h3");
+    h.textContent = t(item.name);
+    const p = document.createElement("p");
+    p.textContent = t(item.desc);
+    body.append(h, p);
+    const price = priceOf(item);
+    const foot = document.createElement("div");
+    foot.className = "foot" + (price === null ? " noprice" : "");
+    if (price !== null) {
+      const pr = document.createElement("span");
+      pr.className = "price";
+      pr.textContent = money(price);
+      foot.append(pr);
+    }
+    if (S.orders.enabled) {
+      const add = document.createElement("button");
+      add.type = "button";
+      add.className = "btn btn-primary add";
+      add.dataset.i = idx;
+      add.textContent = d.add;
+      add.setAttribute("aria-label", d.add + ": " + t(item.name));
+      foot.append(add);
+    }
+    if (foot.children.length) body.append(foot);
+    card.append(img, body);
+    grid.append(card);
+  });
+
+  // Visit info rows
+  const rows = $("#info-rows");
+  rows.innerHTML = "";
+  const addRow = (label, content) => {
+    if (!content) return;
+    const r = document.createElement("div");
+    r.className = "row";
+    const l = document.createElement("span");
+    l.className = "lbl";
+    l.textContent = label;
+    const v = document.createElement("span");
+    v.className = "val";
+    if (content instanceof Node) v.append(content); else v.textContent = content;
+    r.append(l, v);
+    rows.append(r);
+  };
+  const linkNode = (href, text) => { const a = document.createElement("a"); a.href = href; a.textContent = text; return a; };
+  addRow(d.lbl_hours, t(S.hours));
+  addRow(d.lbl_address, t(S.address));
+  addRow(d.lbl_phone, S.phone ? linkNode(telHref(), S.phone) : "");
+  addRow(d.lbl_email, S.email ? linkNode("mailto:" + S.email, S.email) : "");
+
+  // Visit buttons
+  const vb = $("#visit-btns");
+  vb.innerHTML = "";
+  if (isLink(S.mapsLink)) vb.append(makeButton("btn-primary", S.mapsLink, d.btn_directions, true));
+  if (S.phone) vb.append(makeButton("btn-outline", telHref(), d.btn_call));
+  if (S.email) vb.append(makeButton("btn-outline", "mailto:" + S.email, d.btn_email));
+
+  // Social links (section hidden when none are set)
+  const sb = $("#social-btns");
+  sb.innerHTML = "";
+  Object.keys(SOCIAL_LABELS).forEach(key => {
+    const url = S.social && S.social[key];
+    if (isLink(url)) sb.append(makeButton("btn-outline", url, SOCIAL_LABELS[key] + " \u2197", true));
+  });
+  $("#follow").hidden = sb.children.length === 0;
+
+  $("#footer-text").textContent = "\u00A9 " + new Date().getFullYear() + " " + S.shopName + ". " + d.footer;
+
+  updateCart();
+  syncType();
+  refreshDone();
+}
+
+function setupHeroImage() {
+  if (SETTINGS.heroImage) {
+    const safe = SETTINGS.heroImage.replace(/'/g, "%27");
+    $("#hero").style.backgroundImage =
+      "linear-gradient(rgba(35,24,17,.6),rgba(35,24,17,.75)), url('" + safe + "')";
+  }
+}
+
+function setupQR() {
+  const url = SETTINGS.siteUrl || location.href.split("#")[0].split("?")[0];
+  $("#qr-url").textContent = url;
+  const box = $("#qrcode");
+  box.innerHTML = "";
+  if (window.QRCode) {
+    new QRCode(box, { text: url, width: 220, height: 220, colorDark: "#3B2A20", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H });
+  } else {
+    box.textContent = "QR code could not load. Check the internet connection.";
+  }
+
+  $("#dl-qr").addEventListener("click", () => {
+    const src = $("#qrcode canvas") || $("#qrcode img");
+    if (!src) return;
+    const size = src.width || 220, pad = 24;
+    const out = document.createElement("canvas");
+    out.width = out.height = size + pad * 2;
+    const ctx = out.getContext("2d");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, out.width, out.height);
+    ctx.drawImage(src, pad, pad, size, size);
+    const a = document.createElement("a");
+    a.download = SETTINGS.shopName.replace(/\s+/g, "-").toLowerCase() + "-qr.png";
+    a.href = out.toDataURL("image/png");
+    a.click();
+  });
+
+  $("#print-qr").addEventListener("click", () => {
+    document.body.classList.add("print-qr");
+    window.print();
+  });
+  window.addEventListener("afterprint", () => document.body.classList.remove("print-qr"));
+}
+
+/* ---------- Ordering (cart + order form) ---------- */
+const ORDER_MAX_QTY = 20;
+let cart = [];        // [{ i: menu index, qty }]
+let lastDone = null;  // result of the last order, shown in the "done" view
+const TABLE_FROM_URL = (new URLSearchParams(location.search).get("table") || "").trim().slice(0, 10);
+const dlg = $("#cart");
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function priceOf(item) {
+  const n = parseFloat(String(item.price == null ? "" : item.price).replace(/[^\d.]/g, ""));
+  return isFinite(n) && n > 0 ? n : null;
+}
+function money(n) {
+  const O = SETTINGS.orders;
+  return (O.currency || "") + n.toLocaleString("en-US", { minimumFractionDigits: O.decimals, maximumFractionDigits: O.decimals });
+}
+function bothNames(item) {
+  const n = item.name;
+  if (!n || typeof n !== "object") return String(n || "");
+  return [...new Set([n.en, n.km].filter(Boolean))].join(" / ");
+}
+function orderMode() {
+  const O = SETTINGS.orders;
+  if (O.endpoint) return "live";
+  if (O.telegramUsername) return "telegram";
+  return "demo";
+}
+function cartCount() { return cart.reduce((s, l) => s + l.qty, 0); }
+function cartTotal() {
+  let sum = 0;
+  for (const l of cart) {
+    const p = priceOf(SETTINGS.menu[l.i]);
+    if (p === null) return null;
+    sum += p * l.qty;
+  }
+  return sum;
+}
+function addToCart(i) {
+  const l = cart.find(x => x.i === i);
+  if (l) l.qty = Math.min(l.qty + 1, ORDER_MAX_QTY); else cart.push({ i, qty: 1 });
+  updateCart();
+}
+function changeQty(i, delta) {
+  const l = cart.find(x => x.i === i);
+  if (!l) return;
+  l.qty += delta;
+  cart = l.qty <= 0 ? cart.filter(x => x !== l) : cart;
+  if (l.qty > ORDER_MAX_QTY) l.qty = ORDER_MAX_QTY;
+  updateCart();
+}
+
+function updateCart() {
+  const d = I18N[lang], n = cartCount(), total = cartTotal();
+  $("#cart-fab").hidden = !SETTINGS.orders.enabled || n === 0;
+  $("#fab-label").textContent = d.fab + (total !== null ? " · " + money(total) : "");
+  $("#fab-count").textContent = n;
+  $("#cart-close").setAttribute("aria-label", d.aria_close);
+  $("#demo-note").hidden = orderMode() !== "demo";
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const d = I18N[lang], box = $("#cart-items");
+  box.innerHTML = "";
+  $("#cart-empty").hidden = cart.length > 0;
+  $("#order-form").hidden = cart.length === 0;
+  cart.forEach(l => {
+    const item = SETTINGS.menu[l.i], p = priceOf(item);
+    const row = el("div", "line");
+    const q = el("span", "qty");
+    const minus = el("button", "", "−");
+    minus.type = "button"; minus.dataset.act = "minus"; minus.dataset.i = l.i;
+    minus.setAttribute("aria-label", d.aria_minus + ": " + t(item.name));
+    const plus = el("button", "", "+");
+    plus.type = "button"; plus.dataset.act = "plus"; plus.dataset.i = l.i;
+    plus.setAttribute("aria-label", d.aria_plus + ": " + t(item.name));
+    q.append(minus, el("span", "", l.qty), plus);
+    row.append(el("span", "nm", t(item.name)), q);
+    if (p !== null) row.append(el("span", "lp", money(p * l.qty)));
+    box.append(row);
+  });
+  const total = cartTotal(), tEl = $("#cart-total");
+  tEl.hidden = cart.length === 0 || total === null;
+  if (total !== null) tEl.textContent = d.total + ": " + money(total);
+}
+
+function currentType() { return document.querySelector('input[name="type"]:checked').value; }
+function syncType() {
+  const dine = currentType() === "dine", d = I18N[lang];
+  $("#f-table").hidden = !dine;
+  $("#lbl-name").textContent = dine ? d.f_name_opt : d.f_name_req;
+}
+
+function showView(name) {
+  $("#cart-view").hidden = name !== "cart";
+  $("#done-view").hidden = name !== "done";
+}
+function refreshDone() {
+  if (!lastDone) return;
+  const d = I18N[lang], r = lastDone;
+  const titleKey = r.mode === "live" ? "done_title" : r.mode === "telegram" ? "done_tg_title" : "done_demo_title";
+  const msgKey = r.mode === "live" ? (r.type === "dine" ? "done_dine" : "done_take") : r.mode === "telegram" ? "done_tg" : "done_demo";
+  $("#done-title").textContent = d[titleKey];
+  $("#done-id").textContent = "#" + r.id;
+  $("#done-msg").textContent = d[msgKey];
+  const tg = $("#tg-link");
+  tg.hidden = r.mode !== "telegram";
+  if (r.mode === "telegram") {
+    const user = String(SETTINGS.orders.telegramUsername).replace(/^@/, "");
+    tg.href = "https://t.me/" + encodeURIComponent(user) + "?text=" + encodeURIComponent(r.text);
+  }
+}
+
+function openCart() {
+  lastDone = null;
+  $("#form-err").hidden = true;
+  showView("cart");
+  updateCart();
+  if (!dlg.open) { if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); }
+  document.body.style.overflow = "hidden";
+}
+
+function makeOrderId() {
+  const a = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for (let k = 0; k < 4; k++) s += a[Math.floor(Math.random() * a.length)];
+  return s;
+}
+function orderText(o) {
+  const lines = ["NEW ORDER #" + o.id, o.type === "dine" ? "Dine in - Table " + o.table : "Take away"];
+  if (o.name) lines.push("Name: " + o.name);
+  lines.push("");
+  o.items.forEach(it => lines.push(it.qty + " x " + it.name + (it.price != null ? "  (" + money(it.price * it.qty) + ")" : "")));
+  if (o.total != null) lines.push("", "Total: " + money(o.total));
+  if (o.note) lines.push("", "Note: " + o.note);
+  return lines.join("\n");
+}
+async function postOrder(order) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    const res = await fetch(SETTINGS.orders.endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+      signal: ctrl.signal
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+$("#menu-grid").addEventListener("click", e => {
+  const b = e.target.closest(".add");
+  if (!b) return;
+  addToCart(+b.dataset.i);
+  b.textContent = I18N[lang].added;
+  clearTimeout(b._t);
+  b._t = setTimeout(() => { b.textContent = I18N[lang].add; }, 900);
+  const fab = $("#cart-fab");
+  fab.classList.remove("bump");
+  void fab.offsetWidth;
+  fab.classList.add("bump");
+});
+
+$("#cart-items").addEventListener("click", e => {
+  const b = e.target.closest("button[data-act]");
+  if (!b) return;
+  const i = +b.dataset.i, act = b.dataset.act;
+  changeQty(i, act === "plus" ? 1 : -1);
+  const again = $('#cart-items button[data-act="' + act + '"][data-i="' + i + '"]');
+  (again || $("#cart-close")).focus();
+});
+
+document.querySelectorAll('input[name="type"]').forEach(r => r.addEventListener("change", syncType));
+$("#cart-fab").addEventListener("click", openCart);
+$("#cart-close").addEventListener("click", () => dlg.close());
+$("#done-close").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => { document.body.style.overflow = ""; });
+if (TABLE_FROM_URL) $("#in-table").value = TABLE_FROM_URL;
+
+$("#order-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!cart.length) return;
+  const S = SETTINGS, err = $("#form-err"), btn = $("#submit-order");
+  const type = currentType();
+  const table = $("#in-table").value.trim(), name = $("#in-name").value.trim(), note = $("#in-note").value.trim();
+  const fail = (msg, sel) => { err.textContent = msg; err.hidden = false; if (sel) $(sel).focus(); };
+  err.hidden = true;
+  if (type === "dine" && !table) return fail(I18N[lang].err_table, "#in-table");
+  if (type === "take" && !name) return fail(I18N[lang].err_name, "#in-name");
+
+  const order = {
+    id: makeOrderId(), type, table: type === "dine" ? table : "", name, note, lang,
+    shop: S.shopName,
+    items: cart.map(l => { const it = S.menu[l.i]; return { name: bothNames(it), qty: l.qty, price: priceOf(it) }; }),
+    total: cartTotal(),
+    currency: S.orders.currency || ""
+  };
+
+  btn.disabled = true;
+  btn.textContent = I18N[lang].btn_sending;
+  try {
+    const mode = orderMode();
+    if (mode === "live") await postOrder(order);
+    lastDone = { mode, id: order.id, type, text: orderText(order) };
+    cart = [];
+    $("#in-note").value = "";
+    updateCart();
+    showView("done");
+    refreshDone();
+    $("#done-title").focus();
+  } catch (x) {
+    fail(I18N[lang].err_send);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = I18N[lang].btn_place;
+  }
+});
+
+document.querySelectorAll(".lang button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    lang = btn.dataset.lang;
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+    render();
+  });
+});
+
+setupHeroImage();
+render();
+setupQR();
+</script>
+</body>
+</html>
